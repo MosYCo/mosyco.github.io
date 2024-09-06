@@ -45,16 +45,16 @@ jobs:
           cd /opt/fisheep-blog/
           npm i -g pnpm
           pnpm install
+          pnpm build
 
       - name: Delete File
         run: |
           cd /opt/fisheep-blog/
-          pnpm build
           node dist/index.esm.js ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }}
           cp -a /opt/fisheep-blog/output/pager ${{ github.workspace }}
           cp -a /opt/fisheep-blog/output/pages ${{ github.workspace }}
           cp -a /opt/fisheep-blog/output/backup ${{ github.workspace }}
-          cp /opt/fisheep-blog/index.html ${{ github.workspace }}
+          cp /opt/fisheep-blog/output/index.html ${{ github.workspace }}
 
       - name: Update html
         run: |

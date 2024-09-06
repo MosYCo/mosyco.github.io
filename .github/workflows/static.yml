@@ -51,10 +51,8 @@ jobs:
         run: |
           cd /opt/fisheep-blog/
           node dist/index.esm.js ${{ secrets.GITHUB_TOKEN }} ${{ github.repository }}
-          cp -a /opt/fisheep-blog/output/pager ${{ github.workspace }}
-          cp -a /opt/fisheep-blog/output/pages ${{ github.workspace }}
-          cp -a /opt/fisheep-blog/output/backup ${{ github.workspace }}
-          cp /opt/fisheep-blog/output/index.html ${{ github.workspace }}
+          cp -a /opt/fisheep-blog/backup ${{ github.workspace }}
+          cp -a /opt/fisheep-blog/docs ${{ github.workspace }}
 
       - name: Update html
         run: |
@@ -67,6 +65,8 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/.'
           
 
   # Single deploy job since we're just deploying

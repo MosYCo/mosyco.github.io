@@ -49,6 +49,7 @@ jobs:
       - name: Delete File
         run: |
           cd /opt/fisheep-blog/
+          pnpm build
           node dist/index.esm.js ${{ secrets.GITHUB_TOKEN }} {{ github.repository }}
           cp -a /opt/fisheep-blog/output/pager ${{ github.workspace }}
           cp -a /opt/fisheep-blog/output/pages ${{ github.workspace }}

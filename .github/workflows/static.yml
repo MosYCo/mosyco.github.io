@@ -2,12 +2,11 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # Issue新建或者编辑时执行
+  issues:
+    types: [opened, edited]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -22,8 +21,55 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  build:
+    name: Generate blog
+    runs-on: ubuntu-latest
+    # 只有仓库作者操作才执行
+    if: ${{ github.event.repository.owner.id == github.event.sender.id }}
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Clone source code
+        run: |
+          git clone https://github.com/MosYCo/fisheep-blog.git /opt/fisheep-blog
+          cd /opt/fisheep-blog/
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Delete File
+        run: |
+          node dist/index.esm.js ${{ secrets.GITHUB_TOKEN }} {{ github.repository }}
+          cp -a /opt/fisheep-blog/output/pager ${{ github.workspace }}
+          cp -a /opt/fisheep-blog/output/pages ${{ github.workspace }}
+          cp -a /opt/fisheep-blog/output/backup ${{ github.workspace }}
+          cp /opt/fisheep-blog/index.html ${{ github.workspace }}
+
+      - name: Update html
+        run: |
+          git config --local user.email "moseternal@gmail.com"
+          git config --local user.name "${{ github.repository_owner }}"
+          git add .
+          git commit -a -m '🎉auto update by Fisheep action' || echo "nothing to commit"
+          git push || echo "nothing to push"
+          sleep 3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+          
+
   # Single deploy job since we're just deploying
   deploy:
+    name: Deploy blog
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

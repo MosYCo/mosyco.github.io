@@ -39,15 +39,16 @@ jobs:
       - name: Clone source code
         run: |
           git clone https://github.com/MosYCo/fisheep-blog.git /opt/fisheep-blog
-          cd /opt/fisheep-blog/
 
       - name: Install dependencies
         run: |
+          cd /opt/fisheep-blog/
           npm i -g pnpm
           pnpm install
 
       - name: Delete File
         run: |
+          cd /opt/fisheep-blog/
           node dist/index.esm.js ${{ secrets.GITHUB_TOKEN }} {{ github.repository }}
           cp -a /opt/fisheep-blog/output/pager ${{ github.workspace }}
           cp -a /opt/fisheep-blog/output/pages ${{ github.workspace }}

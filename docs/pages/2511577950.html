@@ -1,31 +1,31 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>博客开发日记(2024-09-07)</title><link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet"><link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="../assets/lib/css/index.css"><script type="text/javascript" src="../assets/lib/js/util.js"></script></head><body><div id="2511577950" class="container"><header class="header"><div class="header-inner"><div class="title-wrapper"><span id="toggle-menu-btn" class="toggle-menu"><i class="fa fa-fw fa-bars"></i></span><div class="title-meta"><a class="title" href="./index.html">Fisheep Sky</a></div><p class="sub-title">人生有梦，各自精彩</p></div><div id="nav-bar" class="nav-bar-wrapper"><ul class="nav-menu"><li class="nav-menu-item"><a href="../index.html"><i class="fa fa-fw fa-home"></i> 首页</a></li><li class="nav-menu-item"><a href="./link.html"><i class="fa fa-fw fa-link"></i> 链接</a></li><li class="nav-menu-item"><a href="./about.html"><i class="fa fa-fw fa-user"></i> 关于</a></li></ul></div></div></header><main class="content"><div class="content-inner"><div class="post-wrapper"><article class="post"><div class="post-header-wrapper"><div class="post-title-wrapper"><div class="post-title">博客开发日记(2024-09-07)</div></div><div class="post-site-wrapper"><span class="post-create-date"><i class="fa fa-fw fa-calendar-plus-o"></i>2024-09-07</span> <span class="divider">|</span> <span class="post-update-date"><i class="fa fa-fw fa-calendar-check-o"></i>2024-09-07</span><div class="post-labels-wrapper"><span class="post-label" title="乱说一气" aria-label="杂谈" style="color:#d4c5f9">杂谈</span></div></div></div><div class="markdown-body post-content"><p>昨天补完了自动发布的逻辑，也新增了一个模板仓库，现在可以通过该仓库一键部署新仓库，同时新增或者编辑Issue的时候也能触发Github Action实现自动化部署了。<br>今天新增了一个模板样式，并且进行了调整，对于整体的代码结构也有所调整。</p><h2>目前已完成功能</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>链接与关于页面还没做</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 目前使用EJS解析，但是模板写着不太舒服，后续考虑换成Handlebars</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>有些Github的API直接调用的，考虑到扩展性， 后续考虑封装</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>现在只能本地生成然后手动更新到博客文章库，后续研究一下GithubActions自动发布更新</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 放开的配置太少</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 查询Issue时没做排序</li></ul><h2>后续考虑新增功能</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 新增样式模板自由切换很麻烦，后续新增配置进行选择</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 支持多语言</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 支持多主题</li></ul><h2>杂谈记录</h2><p>后面准备出去玩几天，放松一下，如果有机会的话随缘更新一些日常吧，顺便思考一下可以支持的功能吧，就这样...</p></div></article></div></div></main><footer class="footer"><div class="footer-inner"><div>Copyright © <span class="current-year">2024</span> <a href="https://mosyco.github.io">Fisheep</a></div></div></footer></div></body><script>window.addEventListener('resize', debounce(() => {
-    const navBar = document.getElementById("nav-bar");
-    if (!navBar) {
-      return;
-    }
-    const width = document.body.clientWidth;
-    if (navBar.classList.contains("nav-bar-slide-up")) {
-      width > 900 && navBar.classList.remove('nav-bar-slide-up');
-    }
-    if (navBar.classList.contains("nav-bar-wrapper-on")) {
-      navBar.classList.remove('nav-bar-wrapper-on');
-    }
-  }));
-  const handleToggleMenu = () => {
-    const width = document.body.clientWidth;
-    if (width > 900) {
-      return;
-    }
-    const navBar = document.getElementById("nav-bar");
-    if (!navBar.classList.contains("nav-bar-slide-up")) {
-      navBar.classList.add('nav-bar-slide-up');
-    }
-    if (navBar.classList.contains("nav-bar-wrapper-on")) {
-      navBar.classList.remove('nav-bar-wrapper-on');
-    } else {
-      navBar.classList.add('nav-bar-wrapper-on');
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>博客开发日记(2024-09-07)</title><link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet"><link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css"><link rel="stylesheet" href="../assets/lib/css/index.css"><script type="text/javascript" src="../assets/lib/js/util.js"></script></head><body><div id="2511577950" class="container"><header class="header"><div class="header-inner"><div class="title-wrapper"><span id="toggle-menu-btn" class="toggle-menu"><i class="fa fa-fw fa-bars"></i></span><div class="title-meta"><a class="title" href="./index.html">Fisheep Sky</a></div><p class="sub-title">人生有梦，各自精彩</p></div><div id="nav-bar" class="nav-bar-wrapper"><ul class="nav-menu"><li class="nav-menu-item"><a href="../index.html"><i class="fa fa-fw fa-home"></i> 首页</a></li><li class="nav-menu-item"><a href="./link.html"><i class="fa fa-fw fa-link"></i> 链接</a></li><li class="nav-menu-item"><a href="./about.html"><i class="fa fa-fw fa-user"></i> 关于</a></li></ul></div></div></header><main class="content"><div class="content-inner"><div class="post-wrapper"><article class="post"><div class="post-header-wrapper"><div class="post-title-wrapper"><div class="post-title">博客开发日记(2024-09-07)</div></div><div class="post-site-wrapper"><span class="post-create-date"><i class="fa fa-fw fa-calendar-plus-o"></i>2024-09-07</span> <span class="divider">|</span> <span class="post-update-date"><i class="fa fa-fw fa-calendar-check-o"></i>2024-09-07</span><div class="post-labels-wrapper"><span class="post-label" title="乱说一气" aria-label="杂谈" style="color:#d4c5f9">杂谈</span></div></div></div><div class="markdown-body post-content"><p>昨天补完了自动发布的逻辑，也新增了一个模板仓库，现在可以通过该仓库一键部署新仓库，同时新增或者编辑Issue的时候也能触发Github Action实现自动化部署了。<br>今天新增了一个模板样式，并且进行了调整，对于整体的代码结构也有所调整。</p><h2>目前已完成功能</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>链接与关于页面还没做</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 目前使用EJS解析，但是模板写着不太舒服，后续考虑换成Handlebars</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>有些Github的API直接调用的，考虑到扩展性， 后续考虑封装</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> <del>现在只能本地生成然后手动更新到博客文章库，后续研究一下GithubActions自动发布更新</del></li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 放开的配置太少</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 查询Issue时没做排序</li></ul><h2>后续考虑新增功能</h2><ul class="contains-task-list"><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 新增样式模板自由切换很麻烦，后续新增配置进行选择</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 支持多语言</li><li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 支持多主题</li></ul><h2>杂谈记录</h2><p>后面准备出去玩几天，放松一下，如果有机会的话随缘更新一些日常吧，顺便思考一下可以支持的功能吧，就这样...</p></div></article></div><div class="comments-wrapper"><button class="action-btn" onclick="openComments()" id="show-comments-btn">评论<span class="comments-count">0</span></button><div class="comments" id="comments"></div></div></div></main><footer class="footer"><div class="footer-inner"><div>Copyright © <span class="current-year">2024</span> <a href="https://github.com/MosYCo/fisheep-blog">Fisheep</a></div></div></footer></div></body><script type="text/javascript" src="../assets/lib/js/nav-bar.js"></script><script>let commentsTimer = null;
+let utterancesLoad = false;
+const openComments = () => {
+  const comments = document.getElementById("comments");
+  const commentBtn = document.getElementById("show-comments-btn");
+  commentBtn.innerHTML = "loading";
+  const span = document.createElement("span");
+  span.setAttribute("class","AnimatedEllipsis");
+  commentBtn.appendChild(span);
+
+  const script = document.createElement("script");
+  script.setAttribute("src","https://utteranc.es/client.js");
+  script.setAttribute("repo","MosYCo/mosyco.github.io");
+  script.setAttribute("issue-term","title");
+  script.setAttribute("theme","github-light");
+  script.setAttribute("crossorigin","anonymous");
+  script.setAttribute("async","");
+  comments.appendChild(script);
+  commentsTimer = setInterval("iFrameLoading()",200);
+};
+const iFrameLoading = () => {
+  const utterances = document.getElementsByClassName('utterances');
+  if(utterances.length === 1){
+    if(utterances[0].style.height !== ""){
+      utterancesLoad = true;
+      window.clearInterval(commentsTimer);
+      commentsTimer = null;
+      document.getElementById("show-comments-btn").style.display="none";
     }
   }
-  document.getElementById("toggle-menu-btn").onclick = () => {
-    handleToggleMenu();
-  }</script></html>
+}</script></html>

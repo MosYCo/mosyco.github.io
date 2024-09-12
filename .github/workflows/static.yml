@@ -31,6 +31,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Get config.json
+        run: |
+          echo "====== check config.json file ======"
+          cat config.json
+          echo "====== check config.json end  ======"
+          sudo apt-get install jq
+
       - name: Setup Nodejs
         uses: actions/setup-node@v4
         with:
@@ -56,7 +67,7 @@ jobs:
 
       - name: Update html
         run: |
-          git config --local user.email "moseternal@gmail.com"
+          git config --local user.email "$(jq -r ".email" config.json)"
           git config --local user.name "${{ github.repository_owner }}"
           git add .
           git commit -a -m '🎉auto update by Fisheep action' || echo "nothing to commit"
@@ -67,7 +78,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'docs/.'
-          
+
 
   # Single deploy job since we're just deploying
   deploy:

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>博客框架开发日记(2024-09-06)</title>
+	<link rel="stylesheet" href="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css">
+	<link rel="stylesheet" href="/docs/assets/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/docs/assets/lib/css/index.css" />
+	<script type="text/javascript" src="/docs/assets/lib/js/util.js"></script>
+</head>
+<body>
+<div id="2510067882" class="container">
+    <header class="header">
+  <div class="header-inner">
+    <div class="title-wrapper">
+      <span id="toggle-menu-btn" class="toggle-menu">
+        <i class="fa fa-fw fa-bars"></i>
+      </span>
+      <div class="title-meta">
+        <a class="title link-btn" href="/docs/">Fisheep Sky</a>
+      </div>
+      <p class="sub-title">人生有梦，各自精彩</p>
+    </div>
+    <div id="nav-bar" class="nav-bar-wrapper">
+      <ul class="nav-menu">
+        <li class="nav-menu-item">
+          <a class="link-btn" href="/docs/">
+            <i class="fa fa-fw fa-home"></i>
+            首页
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a class="link-btn" href="/docs/pages/link.html">
+            <i class="fa fa-fw fa-link"></i>
+            链接
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a class="link-btn" href="/docs/pages/about.html">
+            <i class="fa fa-fw fa-user"></i>
+            关于
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+    <main class="content">
+        <div class="content-inner">
+            <div class="post-wrapper">
+                <article class="post">
+                    <div class="post-header-wrapper">
+                        <div class="post-title-wrapper">
+                            <div class="post-title">博客框架开发日记(2024-09-06)</div>
+                        </div>
+                        <div class="post-site-wrapper">
+                            <span class="post-create-date"><i class="fa fa-fw fa-calendar-plus-o"></i>2024-09-06</span>
+                            <span class="divider">|</span>
+                            <span class="post-update-date"><i class="fa fa-fw fa-calendar-check-o"></i>2024-09-12</span>
+                            
+                                <div class="post-labels-wrapper">
+                                    
+                                        <span class="post-label" title="平凡每一天" aria-label="日常" style="color: #0E8A16">日常</span>
+                                    
+                                        <span class="post-label" title="乱说一气" aria-label="杂谈" style="color: #D4C5F9">杂谈</span>
+                                    
+                                        <span class="post-label" title="开发记录" aria-label="开发日志" style="color: #FBCA04">开发日志</span>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="markdown-body post-content">
+                        <h2>介绍</h2>
+<p><a href="https://github.com/MosYCo/fisheep-blog">Fisheep-blog</a><br>
+仿<a href="https://github.com/Meekdai/Gmeek">Gmeek</a>开发的一款基于NodeJS的个人博客框架，使用EJS解析生成静态HTML文件，<br>
+用Github Pages实现部署，可通过Github io进行访问。</p>
+<h2>已支持功能</h2>
+<ul>
+<li>基于Issues 动态生成页面，可跳转页面与打开文章</li>
+<li>使用Github Pages部署，可以在线访问</li>
+<li>支持HTML压缩</li>
+</ul>
+<h2>目前的问题以及未来可能</h2>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 链接与关于页面还没做</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 目前使用EJS解析，但是模板写着不太舒服，后续考虑换成Handlebars</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 有些Github的API直接调用的，考虑到扩展性，  后续考虑封装</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox" checked=""> 现在只能本地生成然后手动更新到博客文章库，后续研究一下GithubActions自动发布更新</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 放开的配置太少</li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 查询Issue时没做排序</li>
+</ul>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="comments-wrapper">
+                <button class="action-btn" onclick="openComments()" id="show-comments-btn">评论<span class="comments-count">0</span></button>
+                <div class="comments" id="comments"></div>
+            </div>
+            
+        </div>
+    </main>
+    <footer class="footer">
+  <div class="footer-inner">
+    <div>
+      Copyright ©
+      <span class="current-year">2024</span>
+      <a href="https://github.com/MosYCo/fisheep-blog" >Fisheep</a>
+    </div>
+  </div>
+</footer>
+</div>
+<div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span id="scroll-percent"></span>
+</div>
+</body>
+<script type="text/javascript" src="/docs/assets/lib/js/nav-bar.js"></script>
+<script type="text/javascript" src="/docs/assets/lib/js/back-to-top.js"></script>
+
+<script>
+
+let commentsTimer = null;
+let utterancesLoad = false;
+const openComments = () => {
+  const comments = document.getElementById("comments");
+  const commentBtn = document.getElementById("show-comments-btn");
+  commentBtn.innerHTML = "loading";
+  const span = document.createElement("span");
+  span.setAttribute("class","AnimatedEllipsis");
+  commentBtn.appendChild(span);
+
+  const script = document.createElement("script");
+  script.setAttribute("src","https://utteranc.es/client.js");
+  script.setAttribute("repo","MosYCo/mosyco.github.io");
+  script.setAttribute("issue-term","title");
+  script.setAttribute("theme","github-light");
+  script.setAttribute("crossorigin","anonymous");
+  script.setAttribute("async","");
+  comments.appendChild(script);
+  commentsTimer = setInterval("iFrameLoading()",200);
+};
+const iFrameLoading = () => {
+  const utterances = document.getElementsByClassName('utterances');
+  if(utterances.length === 1){
+    if(utterances[0].style.height !== ""){
+      utterancesLoad = true;
+      window.clearInterval(commentsTimer);
+      commentsTimer = null;
+      document.getElementById("show-comments-btn").style.display="none";
+    }
+  }
+}
+
+
+</script>
+</html>

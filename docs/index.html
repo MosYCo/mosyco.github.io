@@ -53,6 +53,39 @@
           <article class="post">
             <div class="post-header-wrapper">
               <div class="post-title-wrapper">
+                <a class="link-btn post-title" href="https://blog.fisheep.top/posts/2575274920.html">Nginx配置小坑记录</a>
+              </div>
+              <div class="post-site-wrapper">
+                <span class="post-create-date"><i class="fa fa-fw fa-calendar-plus-o"></i>2024-10-09</span>
+                <span class="divider">|</span>
+                <span class="post-update-date"><i class="fa fa-fw fa-calendar-check-o"></i>2024-10-09</span>
+                
+                <div class="post-labels-wrapper">
+                  
+                  <span class="post-label" title="又是爱学习的一天呢" aria-label="学习" style="color: #0075ca">学习</span>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="post-description">
+              今天配置Nginx进行代理的时候发现一个小问题，css文件已经加载回来了，点开源代码也能看见，
+但是并没有应用到Dom上。一开始怀疑是路径问题，因为路径上多了一个/，但直接强制引入后还是不行。
+
+后续发现请求css文件的时候请求头中的ContentType是`text\plain`，而正确的应该是`text\css`
+
+查询配置文档后了解到nginx加载文件时可以自动附加contentT...
+            </div>
+            <div class="post-actions-wrapper">
+              <a class="link-btn action-btn" href="https://blog.fisheep.top/posts/2575274920.html">
+                阅读原文
+              </a>
+            </div>
+          </article>
+          
+          <article class="post">
+            <div class="post-header-wrapper">
+              <div class="post-title-wrapper">
                 <a class="link-btn post-title" href="https://blog.fisheep.top/posts/2510067882.html">博客框架开发日记</a>
               </div>
               <div class="post-site-wrapper">

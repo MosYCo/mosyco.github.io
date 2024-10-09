@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Fisheep Sky</title>
+	<link rel="stylesheet" href="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css">
+	<link rel="stylesheet" href="https://blog.fisheep.top/assets/font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://blog.fisheep.top/assets/lib/css/index.css" />
+	<script type="text/javascript" src="https://blog.fisheep.top/assets/lib/js/util.js"></script>
+</head>
+<body>
+<div id="2575274920" class="container">
+    <header class="header">
+  <div class="header-inner">
+    <div class="title-wrapper">
+      <span id="toggle-menu-btn" class="toggle-menu">
+        <i class="fa fa-fw fa-bars"></i>
+      </span>
+      <div class="title-meta">
+        <a class="title link-btn" href="https://blog.fisheep.top/index.html">Fisheep Sky</a>
+      </div>
+      <p class="sub-title">人生有梦，各自精彩</p>
+    </div>
+    <div id="nav-bar" class="nav-bar-wrapper">
+      <ul class="nav-menu">
+        <li class="nav-menu-item">
+          <a class="link-btn" href="https://blog.fisheep.top/index.html">
+            <i class="fa fa-fw fa-home"></i>
+            首页
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a class="link-btn" href="https://blog.fisheep.top/posts/link.html">
+            <i class="fa fa-fw fa-link"></i>
+            链接
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a class="link-btn" href="https://blog.fisheep.top/posts/about.html">
+            <i class="fa fa-fw fa-user"></i>
+            关于
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+    <main class="content">
+        <div class="content-inner">
+            <div class="post-wrapper">
+                <article class="post">
+                    <div class="post-header-wrapper">
+                        <div class="post-title-wrapper">
+                            <div class="post-title">Nginx配置小坑记录</div>
+                        </div>
+                        <div class="post-site-wrapper">
+                            <span class="post-create-date"><i class="fa fa-fw fa-calendar-plus-o"></i>2024-10-09</span>
+                            <span class="divider">|</span>
+                            <span class="post-update-date"><i class="fa fa-fw fa-calendar-check-o"></i>2024-10-09</span>
+                            
+                                <div class="post-labels-wrapper">
+                                    
+                                        <span class="post-label" title="又是爱学习的一天呢" aria-label="学习" style="color: #0075ca">学习</span>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <div class="markdown-body post-content">
+                        <p>今天配置Nginx进行代理的时候发现一个小问题，css文件已经加载回来了，点开源代码也能看见，<br>
+但是并没有应用到Dom上。一开始怀疑是路径问题，因为路径上多了一个/，但直接强制引入后还是不行。</p>
+<p>后续发现请求css文件的时候请求头中的ContentType是<code class="notranslate">text\plain</code>，而正确的应该是<code class="notranslate">text\css</code></p>
+<p>查询配置文档后了解到nginx加载文件时可以自动附加contentType，而有一个对应的映射文件mime.types<br>
+在默认配置中引入了此文件，但是在拷贝配置的时候把这块给覆盖掉了，导致最终加载css文件的contentType不对</p>
+<p>参考Nginx部分配置如下</p>
+<pre class="notranslate"><code class="notranslate">http {
+    #  引入类型映射文件
+    include       mime.types;
+    #  添加默认ContentType
+    default_type  application/octet-stream;
+}
+</code></pre>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="comments-wrapper">
+                <button class="action-btn" onclick="openComments()" id="show-comments-btn">评论<span class="comments-count">0</span></button>
+                <div class="comments" id="comments"></div>
+            </div>
+            
+        </div>
+    </main>
+    <footer class="footer">
+  <div class="footer-inner">
+    <div>
+      Copyright ©
+      <span class="current-year">2024</span>
+      <a href="https://blog.fisheep.top" >Fisheep</a>
+    </div>
+  </div>
+</footer>
+</div>
+<div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span id="scroll-percent"></span>
+</div>
+</body>
+<script type="text/javascript" src="https://blog.fisheep.top/assets/lib/js/nav-bar.js"></script>
+<script type="text/javascript" src="https://blog.fisheep.top/assets/lib/js/back-to-top.js"></script>
+
+<script>
+
+let commentsTimer = null;
+let utterancesLoad = false;
+const openComments = () => {
+  const comments = document.getElementById("comments");
+  const commentBtn = document.getElementById("show-comments-btn");
+  commentBtn.innerHTML = "loading";
+  const span = document.createElement("span");
+  span.setAttribute("class","AnimatedEllipsis");
+  commentBtn.appendChild(span);
+
+  const script = document.createElement("script");
+  script.setAttribute("src","https://utteranc.es/client.js");
+  script.setAttribute("repo","MosYCo/mosyco.github.io");
+  script.setAttribute("issue-term","title");
+  script.setAttribute("theme","github-light");
+  script.setAttribute("crossorigin","anonymous");
+  script.setAttribute("async","");
+  comments.appendChild(script);
+  commentsTimer = setInterval("iFrameLoading()",200);
+};
+const iFrameLoading = () => {
+  const utterances = document.getElementsByClassName('utterances');
+  if(utterances.length === 1){
+    if(utterances[0].style.height !== ""){
+      utterancesLoad = true;
+      window.clearInterval(commentsTimer);
+      commentsTimer = null;
+      document.getElementById("show-comments-btn").style.display="none";
+    }
+  }
+}
+
+
+</script>
+</html>
